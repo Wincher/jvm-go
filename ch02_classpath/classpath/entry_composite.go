@@ -5,8 +5,10 @@ import (
   "strings"
 )
 
+//组合Entry,包含多种操作classpath的Entry
 type CompositeEntry []Entry
 
+//根据path列表,构建组合Entry
 func newCompositeEntry(pathList string) CompositeEntry {
   compositeEntry := []Entry{}
   for _, path := range strings.Split(pathList, pathListSeparator) {
@@ -16,7 +18,7 @@ func newCompositeEntry(pathList string) CompositeEntry {
 
   return compositeEntry
 }
-
+//读取className类文件的data
 func (self CompositeEntry) readClass(className string) ([]byte, Entry, error) {
   for _, entry := range self {
     data, from, err := entry.readClass(className)

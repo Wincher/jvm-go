@@ -6,12 +6,14 @@ import (
   "fmt"
 )
 
+//描述classspath结构体
 type Classpath struct {
   bootClasspath   Entry
   extClasspath    Entry
   userClasspath   Entry
 }
 
+//生成classpath实体
 func Parse(jreOption, cpOption string) *Classpath {
   cp := &Classpath{}
   cp.parseBootAndExtClasspath(jreOption)
@@ -20,6 +22,7 @@ func Parse(jreOption, cpOption string) *Classpath {
   return cp
 }
 
+//classpath的ReadClass方法,获取claspath下className的data数据,依次在classpath下寻找
 func (self *Classpath) ReadClass(className string) ([]byte, Entry, error) {
   className = className + ".class"
   if data, entry, err := self.bootClasspath.readClass(className); err == nil {
@@ -35,6 +38,7 @@ func (self *Classpath) String() string {
   return self.userClasspath.String()
 }
 
+//根据参数初始化classpath的BootClasspath和extClasspath
 func (self *Classpath) parseBootAndExtClasspath(jreOption string) {
   jreDir := getJreDir(jreOption)
   // jre/lib/*
@@ -45,7 +49,7 @@ func (self *Classpath) parseBootAndExtClasspath(jreOption string) {
   jreExtPath := filepath.Join(jreDir, "lib", "ext", "*")
   self.extClasspath = newWildcardEntry(jreExtPath)
 }
-
+//根据参数初始化classpath的UserClasspath
 func (self *Classpath) parseUserClasspath(cpOption string) {
   if cpOption == "" {
     cpOption = "."
@@ -53,6 +57,7 @@ func (self *Classpath) parseUserClasspath(cpOption string) {
   self.userClasspath = newEntry(cpOption)
 }
 
+//根据菜蔬获取jre目录地址
 func getJreDir(jreOption string) string {
 
   if jreOption != "" && exists(jreOption) {
@@ -66,7 +71,7 @@ func getJreDir(jreOption string) string {
   }
   panic("Can not find jre folder!")
 }
-
+//判断目录是否在
 func exists(path string) bool {
   if _, err := os.Stat(path); err != nil {
     if os.IsNotExist(err) {

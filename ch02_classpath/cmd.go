@@ -6,6 +6,7 @@ import (
   "os"
 )
 
+//描述Cmd命令的结构体
 type Cmd struct {
   helpFlag          bool
   versionFlag       bool
@@ -14,9 +15,11 @@ type Cmd struct {
   class             string
   args              []string
 }
-
+//初始化根据命令参数生成Cmd对象
 func parseCmd() *Cmd {
   cmd := &Cmd{}
+
+  //flag类帮助绑定命令行参数到Cmd结构体的字段
   flag.Usage = printUsage
   flag.BoolVar(&cmd.helpFlag, "help", false, "print help message")
   flag.BoolVar(&cmd.helpFlag, "?", false, "print help message")
@@ -34,7 +37,7 @@ func parseCmd() *Cmd {
 
   return cmd
 }
-
+//打印帮助信息,显示参数
 func printUsage() {
   fmt.Printf("Usage: %s [-options] class [args...]\n", os.Args[0])
 }

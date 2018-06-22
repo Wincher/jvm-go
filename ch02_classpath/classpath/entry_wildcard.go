@@ -5,7 +5,7 @@ import (
   "path/filepath"
   "strings"
 )
-
+//使用了通配符的,路径我们选择返回组合Entry
 func newWildcardEntry(path string) CompositeEntry {
   baseDir := path[:len(path)-1]
   compositeEntry := []Entry{}

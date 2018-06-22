@@ -7,6 +7,7 @@ import (
   "path/filepath"
 )
 
+//classpath指向Zip的Entry
 type ZipEntry struct {
   absPath string
 }
@@ -18,6 +19,8 @@ func newZipEntry(path string) *ZipEntry{
   }
   return &ZipEntry{absPath}
 }
+
+//重写readClass方法
 func (self *ZipEntry) readClass(className string) ([]byte, Entry, error)  {
   r, err := zip.OpenReader(self.absPath)
   if err != nil {
