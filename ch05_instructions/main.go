@@ -2,7 +2,7 @@ package main
 
 import (
   "fmt"
-  "jvm_go/ch02_classpath/classpath"
+  "jvm_go/ch05_instructions/classpath"
   "strings"
   "jvm_go/ch05_instructions/classfile"
 )
