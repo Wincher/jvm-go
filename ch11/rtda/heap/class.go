@@ -2,7 +2,7 @@ package heap
 
 import (
 	"strings"
-	"jvm_go/ch10/classfile"
+	"jvm_go/ch11/classfile"
 )
 
 // name, superClassName and interfaceNames are all binary names(jvms8-4.2.1)
